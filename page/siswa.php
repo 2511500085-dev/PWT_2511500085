@@ -13,9 +13,9 @@ include "config/koneksi.php";
 
 if(isset($_GET['action'])) {
     if($_GET['action'] == "hapus") {
-        $id = $_GET['id'];
+        $Nis = $_GET['Nis'];
 
-        $query = mysqli_query($koneksi, "DELETE FROM siswa WHERE id_siswa='$id'");
+        $query = mysqli_query($koneksi, "DELETE FROM siswa WHERE Nis='$Nis'");
         if ($query) {
             echo '<div class="alert alert-warning">Berhasil Di Hapus</div>';
             echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
@@ -56,18 +56,18 @@ if(isset($_GET['action'])) {
                     ?>
                         <tr>
                             <td><?= $no; ?></td>
-                            <td><?= $result['nis']; ?></td>
-                            <td><?= $result['id_user']; ?></td>
-                            <td><?= $result['nm_siswa']; ?></td>
-                            <td><?= $result['jenkel']; ?></td>
+                            <td><?= $result['Nis']; ?></td>
+                            <td><?= $result['Id_user']; ?></td>
+                            <td><?= $result['Nm_siswa']; ?></td>
+                            <td><?= $result['Jenkel']; ?></td>
                             <td><?= $result['HP']; ?></td>
-                            <td><?= $result['id_kelas']; ?></td>
+                            <td><?= $result['Id_siswa']; ?></td>
                             <td>
-                                <a href="index.php?page=siswa&action=hapus&id=<?= $result['nis'] ?>">
+                                <a href="index.php?page=siswa&action=hapus&Nis=<?= $result['Nis'] ?>">
                                     <span class="badge badge-danger">Hapus</span>
                                 </a>
 
-                                <a href="index.php?page=edit_siswa&id=<?= $result['nis'] ?>">
+                                <a href="index.php?page=edit_siswa&Nis=<?= $result['Nis'] ?>">
                                     <span class="badge badge-warning">Edit</span>
                                 </a>
                             </td>

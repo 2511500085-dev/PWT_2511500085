@@ -9,32 +9,22 @@
 </div>
 
 <?php
-include "config/koneksi.php";
-
-// AMBIL ID DARI URL (AMAN)
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-
-// AMBIL DATA
-if ($id != '') { 
-    $query = mysqli_query($koneksi, "SELECT * FROM siswa WHERE id_siswa='$id'");
-    $edit = mysqli_fetch_array($query);
-} else {
-    $edit = null;
-}
+$Nis = $_GET['Nis'];
+$edit = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM siswa WHERE Nis='$Nis' "));
 
 // PROSES UPDATE
 if(isset($_POST['tambah'])){
-    $nis = $_POST['nis'];
-    $id_user = $_POST['id_user'];
-    $nm_siswa = $_POST['nm_siswa'];
-    $jenkel = $_POST['jenkel'];
+    $Nis = $_POST['Nis'];
+    $Id_user = $_POST['Id_user'];
+    $Nm_siswa = $_POST['Nm_siswa'];
+    $Jenkel = $_POST['Jenkel'];
     $HP = $_POST['HP'];
-    $id_siswa = $_POST['id_siswa'];
+    $Id_siswa = $_POST['Id_siswa'];
 
-    if($id_siswa != '' && $nm_siswa != ''){
+    if($Id_siswa != '' && $Nm_siswa != ''){
         $update = mysqli_query($koneksi, "UPDATE siswa 
-        SET nm_siswa='$nm_siswa' 
-        WHERE id_siswa='$id_siswa'");
+        SET Nm_siswa='$Nm_siswa' 
+        WHERE Id_siswa='$Id_siswa'");
 
         if($update){
             echo '<div class="alert alert-success">Berhasil Disimpan</div>';
@@ -52,32 +42,30 @@ if(isset($_POST['tambah'])){
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-
                 <form method="POST">
-
                     <div class="form-group">
-                                <label for="nis">Nis</label>
-                                <input type="text" name="nis" value="<?= $edit['nis']; ?>" class="form-control" readonly>
+                                <label for="Nis">Nis</label>
+                                <input type="text" name="Nis" value="<?= $edit['Nis']; ?>" class="form-control" readonly>
                             </div>
                              <div class="form-group">
-                                <Label for="id_user">Id User</label>
-                                <input type="text" name="id_user" value="<?= $edit['id_user']; ?>" id="id_user" placeholder="Id User" class="form-control">
+                                <Label for="Id_user">Id User</label>
+                                <input type="text" name="Id_user" value="<?= $edit['Id_user']; ?>" id="Id_user" placeholder="Id User" class="form-control">
                             </div>
                             <div class="form-group">
-                                <Label for="nm_siswa">Nama Siswa</label>
-                                <input type="text" name="nm_siswa" value="<?= $edit['nm_siswa']; ?>" id="nm_siswa" placeholder="Nama Siswa" class="form-control">
+                                <Label for="Nm_siswa">Nama Siswa</label>
+                                <input type="text" name="Nm_siswa" value="<?= $edit['Nm_siswa']; ?>" id="Nm_siswa" placeholder="Nama Siswa" class="form-control">
                             </div>
                              <div class="form-group">
-                                <Label for="jenkel">Jenis Kelamin</label>
-                                <input type="text" name="jenkel" value="<?= $edit['jenkel']; ?>" id="jenkel" placeholder="jenkel" class="form-control">
+                                <Label for="Jenkel">Jenis Kelamin</label>
+                                <input type="text" name="Jenkel" value="<?= $edit['Jenkel']; ?>" id="Jenkel" placeholder="Jenkel" class="form-control">
                             </div>
                             <div class="form-group">
                                 <Label for="HP">HP</label>
                                 <input type="text" name="HP" value="<?= $edit['HP']; ?>" id="HP" placeholder="HP" class="form-control">
                             </div>
                             <div class="form-group">
-                                <Label for="id_siswa">Id Siswa</label>
-                                <input type="text" name="Id_siswa" value="<?= $edit['id_siswa']; ?>" id="id_siswa" placeholder="id_siswa" class="form-control">
+                                <Label for="Id_siswa">Id Siswa</label>
+                                <input type="text" name="Id_siswa" value="<?= $edit['Id_siswa']; ?>" id="Id_siswa" placeholder="id_siswa" class="form-control">
                             </div>
 
                     <button type="submit" name="tambah" class="btn btn-primary">
