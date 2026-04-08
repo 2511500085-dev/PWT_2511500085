@@ -195,7 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   $page = "";
                 }
                 if($page == "") {
-                  include "page/dasboard.php";
+                  include "page/dashboard.php";
                 } elseif (!file_exists("page/$page.php")) {
                   echo "file tidak ditemukan";
                 } else {

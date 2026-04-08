@@ -17,7 +17,7 @@ if(isset($_GET['action'])) {
             echo '
             <div class="alert alert-warning alert-dismissible">
             Berhasil Di Hapus</div>';
-            echo '<meta http-equiv="refresh" content="1;url=index.php?page=mapel">';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=mapel"> ';
         }
     }
 }
