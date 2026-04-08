@@ -18,18 +18,18 @@ if(isset($_POST['tambah'])){
     $kkm =$_POST['kkm'];
 
     $insert = mysqli_query($koneksi, "UPDATE mapel SET nm_mapel='$nm_mapel', kkm='$kkm' WHERE kd_mapel='$kd_mapel' ");
-    if($insert) {
+    if ($insert) {
         echo '<div class="alert alert-info-dismissible">
-        <button type+"button" class="close" data-dismiis="alert"
-            aria-hidden="true">X</button>
-        <h5> <i class="icon fas fa-info"></i> Info </h5>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-info"></i> Info </h5>
         <h4>Berhasil Disimpan</h4></div>';
-    }else{
+        echo '<meta http-equiv="refresh" content="1;url=index.php?page=mapel">';
+    } else {
         echo '<div class="alert alert-warning alert-dismissible">
-        button type="button class="close" data-dismiss="alert"
-            aria-hidden="true">X</button>
-        <h5> <i class="icon fas fa-info"></i> Info </h5>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-info"></i> Info </h5>
         <h4>Gagal Disimpan</h4></div>';
+    }
     }
 }
 ?>
