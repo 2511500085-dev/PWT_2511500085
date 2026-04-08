@@ -9,50 +9,69 @@
 </div>
 
 <?php
-$id = $_GET['id'];
-$edit = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM kelas WHERE id_kelas='$id' "));
+include "config/koneksi.php";
 
+// AMBIL ID DARI URL (AMAN)
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+
+// AMBIL DATA
+if ($id != '') {
+    $query = mysqli_query($koneksi, "SELECT * FROM kelas WHERE id_kelas='$id'");
+    $edit = mysqli_fetch_array($query);
+} else {
+    $edit = null;
+}
+
+// PROSES UPDATE
 if(isset($_POST['tambah'])){
-    $id_kelas =$_POST['id_kelas'];
-    $nm_kelas =$_POST['nm_kelas'];
+    $id_kelas = $_POST['id_kelas'];
+    $nm_kelas = $_POST['nm_kelas'];
 
-    $insert = mysqli_query($koneksi, "UPDATE kelas SET nm_kelas='$nm_kelas' WHERE id_kelas='$id_kelas' ");
-    if($insert) {
-        echo '<div class="alert alert-info-dismissible">
-        <button type+"button" class="close" data-dismiis="alert"
-            aria-hidden="true">X</button>
-        <h5> <i class="icon fas fa-info"></i> Info </h5>
-        <h4>Berhasil Disimpan</h4></div>';
-    }else{
-        echo '<div class="alert alert-warning alert-dismissible">
-        button type="button class="close" data-dismiss="alert"
-            aria-hidden="true">X</button>
-        <h5> <i class="icon fas fa-info"></i> Info </h5>
-        <h4>Gagal Disimpan</h4></div>';
+    if($id_kelas != '' && $nm_kelas != ''){
+        $update = mysqli_query($koneksi, "UPDATE kelas 
+        SET nm_kelas='$nm_kelas' 
+        WHERE id_kelas='$id_kelas'");
+
+        if($update){
+            echo '<div class="alert alert-success">Berhasil Disimpan</div>';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=kelas">';
+        } else {
+            echo '<div class="alert alert-danger">Gagal Disimpan</div>';
+        }
+    } else {
+        echo '<div class="alert alert-warning">Data tidak boleh kosong!</div>';
     }
 }
 ?>
 
-  <section class="content">
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-body p-2">
-                        <form method="POST" action="">
-                            <div class="form-group">
-                                <label for="id_kelas">Id Kelas</label>
-                                <input type="text" name="id_kelas" value="<?= $edit['id_kelas']; ?>" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <Label for="nm_kelas">Nama Kelas</label>
-                                <input type="text" name="nm_kelas" value="<?= $edit['nm_kelas']; ?>" id="nm_kelas" placeholder="Nama Kelas" class="form-control">
-                            </div>
-                            <div class="card-footer">
-                                <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
-                            </div>
-                        </form>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+
+                <form method="POST">
+
+                    <div class="form-group">
+                        <label>Id Kelas</label>
+                        <input type="text" name="id_kelas"
+                        value="<?= isset($edit['id_kelas']) ? $edit['id_kelas'] : ''; ?>"
+                        class="form-control" readonly>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label>Nama Kelas</label>
+                        <input type="text" name="nm_kelas"
+                        value="<?= isset($edit['nm_kelas']) ? $edit['nm_kelas'] : ''; ?>"
+                        class="form-control">
+                    </div>
+
+                    <button type="submit" name="tambah" class="btn btn-primary">
+                        Simpan
+                    </button>
+
+                </form>
+
             </div>
         </div>
-  </section>
+    </div>
+</section>
