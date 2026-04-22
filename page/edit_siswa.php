@@ -58,22 +58,30 @@ if(isset($_POST['tambah'])){
                              <div class="form-group">
                                 <Label for="Jenkel">Jenis Kelamin</label>
                                 <input type="text" name="Jenkel" value="<?= $edit['Jenkel']; ?>" id="Jenkel" placeholder="Jenkel" class="form-control">
+                                <option value="">pilih jenis kelamin</option>
+                                <option value="laki-laki" <?= ($edit['jenkel']== 'laki-laki') ? 'selected' : ''; ?>>laki-laki</option>
+                                <option value="perempuan" <?= ($edit['jenkel']== 'perempuan') ? 'selected' : ''; ?>>perempuan</option>
                             </div>
                             <div class="form-group">
                                 <Label for="HP">HP</label>
                                 <input type="text" name="HP" value="<?= $edit['HP']; ?>" id="HP" placeholder="HP" class="form-control">
                             </div>
                             <div class="form-group">
-                                <Label for="Id_siswa">Id Siswa</label>
-                                <input type="text" name="Id_siswa" value="<?= $edit['Id_siswa']; ?>" id="Id_siswa" placeholder="id_siswa" class="form-control">
+                                <Label for="Id_siswa">Id kelas</label>
+                                <select class="form-control" name="id_kelas" required>
+                                    <option value="" disable selected>--Pilih Kelas--</option>
+                                    <?php
+                                    $getkelas = mysqli_query($koneksi, "SELECT * FROM kelas");
+                                    while ($returnkelas = mysqli_fetch_array($getkelas)){
+                                        ?>
+                                        <option value="<?= $returnkelas['id_kelas']; ?>"><?= $returnkelas['nm_kelas']; ?></option>
+                                        <?php } ?>
+                                </select>
                             </div>
-
-                    <button type="submit" name="tambah" class="btn btn-primary">
-                        Simpan
-                    </button>
-
+                        <div class="card-footer">
+                    <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
                 </form>
-
+                </div>
             </div>
         </div>
     </div>

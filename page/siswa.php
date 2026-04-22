@@ -50,7 +50,7 @@ if(isset($_GET['action'])) {
                     <tbody>
                     <?php
                     $no = 0;
-                    $query = mysqli_query($koneksi,"SELECT * FROM siswa");
+                    $query = mysqli_query($koneksi,"SELECT * FROM siswa JOIN kelas ON siswa.id_kelas=kelas.id_kelas");
                     while ($result = mysqli_fetch_array($query)) {
                         $no++;
                     ?>
@@ -63,12 +63,12 @@ if(isset($_GET['action'])) {
                             <td><?= $result['HP']; ?></td>
                             <td><?= $result['Id_siswa']; ?></td>
                             <td>
-                                <a href="index.php?page=siswa&action=hapus&Nis=<?= $result['Nis'] ?>">
+                                <a href="index.php?page=siswa&action=hapus&Nis=<?= $result['Nis'] ?>" title="">
                                     <span class="badge badge-danger">Hapus</span>
                                 </a>
 
-                                <a href="index.php?page=edit_siswa&Nis=<?= $result['Nis'] ?>">
-                                    <span class="badge badge-warning">Edit</span>
+                                <a href="index.php?page=edit_siswa&Nis=<?= $result['Nis'] ?>" title="">
+                                    <span class="badge badge-succes">Edit</span>
                                 </a>
                             </td>
                         </tr>
