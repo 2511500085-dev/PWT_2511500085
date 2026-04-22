@@ -67,14 +67,14 @@ if(isset($_POST['tambah'])){
                                 <input type="text" name="HP" value="<?= $edit['HP']; ?>" id="HP" placeholder="HP" class="form-control">
                             </div>
                             <div class="form-group">
-                                <Label for="Id_siswa">Id kelas</label>
-                                <select class="form-control" name="id_kelas" required>
+                                <Label for="kd_kelas">Kd kelas</label>
+                                <select class="form-control" name="kd_kelas" required>
                                     <option value="" disable selected>--Pilih Kelas--</option>
                                     <?php
                                     $getkelas = mysqli_query($koneksi, "SELECT * FROM kelas");
                                     while ($returnkelas = mysqli_fetch_array($getkelas)){
                                         ?>
-                                        <option value="<?= $returnkelas['id_kelas']; ?>"><?= $returnkelas['nm_kelas']; ?></option>
+                                        <option value="<?= $returnkelas['kd_kelas']; ?>"><?= $returnkelas['nm_kelas']; ?></option>
                                         <?php } ?>
                                 </select>
                             </div>
