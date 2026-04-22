@@ -7,36 +7,20 @@
     </div>
   </div>
 </div>
+
 <?php
-$carikode = mysqli_query($koneksi, "select max(id_kelas) from kelas") or die (
-    mysqli_error());
-$datakode = mysqli_fetch_array($carikode);
-if($datakode) {
-    $nilaikode = substr($datakode[0], 2);
-    $kode = (int) $nilaikode;
-    $kode = $kode + 1;
-    $hasilkode ="K-" .str_pad($kode, 3, "0", STR_PAD_LEFT);
-} else {$hasilkode ="K-"; }
-$_SESSION["KODE"] = $hasilkode;
+
 
 if(isset($_POST['tambah'])){
-    $id_kelas = $_POST['id_kelas'];
-    $nm_kelas = $_POST['nm_kelas'];
+    $pl = $_POST['pl'];
+    $pb = $_POST['pb'];
+    $cek = mysqli_fetch_array(mysqli_query($koneksi,"SELECT * FROM user WHERE username = '$username' "));
 
-    $insert = mysqli_query($koneksi,"INSERT INTO kelas value ('$id_kelas','$nm_kelas')");
-    if($insert) {
-        echo '<div class="alert alert-info-dismissible">
-        <button type="button" class="close" data-dismiss="alert"
-        aria-hidden="true">X</button>
-        <h5><i class="icon fas fa-info"></i> Info </h5>
-        <h4>Berhasil DIsimpan</h4></div>';
-        echo '<meta http-equiv="refresh" content="1;url=index.php?page=kelas">';
-    }else{
-        echo '<div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert"
-        aria-hidden="true">X</button
-        <h5> <i class="icon fas fa-info"></i> Info </h5>
-        <h4>Gagal Disimpan</h4></div>';
+    if($cek){
+    $update = mysqli_query($koneksi,"UPDATE user SET password = '$pb' WHERE password = '$pl' AMD username = '$username' ");
+    if($update){
+        echo "benar";
+    }
     }
 }
 ?>
