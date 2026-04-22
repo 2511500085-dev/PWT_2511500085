@@ -28,6 +28,7 @@ if(isset($_POST['tambah'])){
     $id_siswa = $_POST['id_siswa'];
 
     $insert = mysqli_query($koneksi,"INSERT INTO siswa value ('$nis','$id_user','$nm_siswa', '$jenkel','$HP','$id_siswa')");
+    $insertuser = mysqli_query($koneksi,"INSERT INTO user(username,password,role) VALUE ('$nis','1234','siswa')");
     if($insert) {
         echo '<div class="alert alert-info-dismissible">
         <button type="button" class="close" data-dismiss="alert"
@@ -74,6 +75,30 @@ if(isset($_POST['tambah'])){
                                 <Label for="id_siswa">Id Siswa</label>
                                 <input type="text" name="id_siswa" id="id_siswa" placeholder="id_siswa" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label for="jenkel">Jenis Kelamin</label>
+                                <select name="jenkel" id="jenkel" class="form-control">
+                                    <option value="">pilih jenis kelamin</option>
+                                    <option value="laki-laki">laki-laki</option>
+                                    <option value="perempuan">perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="HP">No HP</label>
+                                <input type="number" name="HP" id="HP" placeholder="No HP" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="id_kelas">ID kelas</label>
+                                <select class="form-control" name="id_kelas" required>
+                                    <option value="" disabled selected>--Pilih Kelas--</option>
+                                    <?php
+                                    $getkelas = mysqli_query($koneksi, "SELECT * FROM kelas");
+                                    while ($returnkelas = mysqli_fetch_array($getkelas)) {
+                                        ?>
+                                        <option value="<?= $returnkelas['id_kelas']; ?></option>
+                                        <?php } ?>
+                                    </select>
+
                             <div class="card-footer">
                                 <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
                             </div>
