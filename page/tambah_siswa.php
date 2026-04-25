@@ -1,22 +1,15 @@
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Data Siswa</h1>
-        </div>
-    </div>
-  </div>
-</div>
 <?php
-$carikode = mysqli_query($koneksi, "select max(nis) from siswa") or die (
-    mysqli_error());
-$datakode = mysqli_fetch_array($carikode);
-if($datakode) {
-    $nilaikode = substr($datakode[0], 2);
-    $kode = (int) $nilaikode;
-    $kode = $kode + 1;
-    $hasilkode ="S-" .str_pad($kode, 3, "0", STR_PAD_LEFT);
-} else {$hasilkode ="S-"; }
+$carikode = mysqli_query($koneksi, "SELECT MAX(nis) as kode FROM siswa") or die(mysqli_error($koneksi));
+$data = mysqli_fetch_assoc($carikode);
+
+if($data['kode'] != NULL) {
+    $nilaikode = substr($data['kode'], 2);
+    $kode = (int)$nilaikode + 1;
+    $hasilkode ="S-" . str_pad($kode, 3, "0", STR_PAD_LEFT);
+} else {
+    $hasilkode ="S-001";
+}
+
 $_SESSION["KODE"] = $hasilkode;
 
 if(isset($_POST['tambah'])){
@@ -26,22 +19,25 @@ if(isset($_POST['tambah'])){
     $jenkel = $_POST['jenkel'];
     $HP = $_POST['HP'];
     $id_siswa = $_POST['id_siswa'];
+    $id_kelas = $_POST['id_kelas'];
 
-    $insert = mysqli_query($koneksi,"INSERT INTO siswa value ('$nis','$id_user','$nm_siswa', '$jenkel','$HP','$id_siswa')");
-    $insertuser = mysqli_query($koneksi,"INSERT INTO user(username,password,role) VALUE ('$nis','1234','siswa')");
-    if($insert) {
-        echo '<div class="alert alert-info-dismissible">
-        <button type="button" class="close" data-dismiss="alert"
-        aria-hidden="true">X</button>
-        <h5><i class="icon fas fa-info"></i> Info </h5>
-        <h4>Berhasil Disimpan</h4></div>';
+    // INSERT KE SISWA
+    $insert = mysqli_query($koneksi,"
+    INSERT INTO siswa (nis,id_user,nm_siswa,jenkel,HP,id_siswa,id_kelas)
+    VALUES ('$nis','$id_user','$nm_siswa','$jenkel','$HP','$id_siswa','$id_kelas')
+    ");
+
+    // INSERT KE USER (PERBAIKAN!)
+    $insertuser = mysqli_query($koneksi,"
+    INSERT INTO admin (username,password,role)
+    VALUES ('$nis','1234','siswa')
+    ");
+
+    if($insert){
+        echo '<div class="alert alert-success">Berhasil Disimpan</div>';
         echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
     }else{
-        echo '<div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert"
-        aria-hidden="true">X</button
-        <h5> <i class="icon fas fa-info"></i> Info </h5>
-        <h4>Gagal Disimpan</h4></div>';
+        echo '<div class="alert alert-danger">Gagal Disimpan</div>';
     }
 }
 ?>
@@ -63,14 +59,6 @@ if(isset($_POST['tambah'])){
                                 <Label for="nm_siswa">Nama Siswa</label>
                                 <input type="text" name="nm_siswa" id="nm_siswa" placeholder="Nama Siswa" class="form-control">
                             </div>
-                             <div class="form-group">
-                                <Label for="jenkel">Jenis Kelamin</label>
-                                <input type="text" name="jenkel" id="jenkel" placeholder="Jenis Kelamin" class="form-control">
-                            </div>
-                             <div class="form-group">
-                                <Label for="HP">HP</label>
-                                <input type="text" name="HP" id="HP" placeholder="HP" class="form-control">
-                            </div>
                             <div class="form-group">
                                 <Label for="id_siswa">Id Siswa</label>
                                 <input type="text" name="id_siswa" id="id_siswa" placeholder="id_siswa" class="form-control">
@@ -91,6 +79,9 @@ if(isset($_POST['tambah'])){
                                 <label for="id_kelas">ID kelas</label>
                                 <select class="form-control" name="id_kelas" required>
                                     <option value="" disabled selected>--Pilih Kelas--</option>
+                                    <option value="TKJ1">TKJ1</option>
+                                    <option value="TKJ2">TKJ2</option>
+                                    <option value="TKJ3">TKJ3</option>
                                     <?php
                                     $getkelas = mysqli_query($koneksi, "SELECT * FROM kelas");
                                     while ($returnkelas = mysqli_fetch_array($getkelas)) {

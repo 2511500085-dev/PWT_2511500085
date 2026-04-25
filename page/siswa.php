@@ -50,7 +50,7 @@ if(isset($_GET['action'])) {
                     <tbody>
                     <?php
                     $no = 0;
-                    $query = mysqli_query($koneksi,"SELECT * FROM siswa JOIN kelas ON siswa.id_kelas=kelas.id_kelas");
+                    $query = mysqli_query($koneksi,"SELECT * FROM siswa");
                     while ($result = mysqli_fetch_array($query)) {
                         $no++;
                     ?>

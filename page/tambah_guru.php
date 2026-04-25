@@ -63,13 +63,24 @@ if(isset($_POST['tambah'])){
                                 <Label for="nm_guru">Nama Guru</label>
                                 <input type="text" name="nm_guru" id="nm_guru" placeholder="Nama Guru" class="form-control">
                             </div>
-                             <div class="form-group">
-                                <Label for="jenkel">Jenis Kelamin</label>
-                                <input type="text" name="jenkel" id="jenkel" placeholder="Jenis Kelamin" class="form-control">
+                                <div class="form-group">
+                                <label for="jenkel">Jenis Kelamin</label>
+                                <select name="jenkel" id="jenkel" class="form-control">
+                                    <option value="">pilih jenis kelamin</option>
+                                    <option value="laki-laki">laki-laki</option>
+                                    <option value="perempuan">perempuan</option>
+                                </select>
                             </div>
                              <div class="form-group">
-                                <Label for="pend_terakhir">Pendidikan Terakhir</label>
-                                <input type="text" name="pend_terakhir" id="pend_terakhir" placeholder="Pendidikan Terakhir" class="form-control">
+                                <label for="pend_terakhir">Pendidikan Terakhir</label>
+                                <select name="pend_terakhir" id="pend_terakhir" class="form-control">
+                                    <option value="">pilih Pendidikan Terakhir</option>
+                                    <option value="SD">SD</option>
+                                    <option value="SMP">SMP</option>
+                                    <option value="SMK">SMK</option>
+                                    <option value="S1">S1</option>
+                                    <option value="S2">S2</option>
+                                </select>
                             </div>
                              <div class="form-group">
                                 <Label for="HP">HP</label>
