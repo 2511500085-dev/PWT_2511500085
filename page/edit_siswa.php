@@ -12,7 +12,7 @@
 $Nis = $_GET['Nis'];
 $edit = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM siswa WHERE Nis='$Nis' "));
 
-// PROSES UPDATE
+// PDPWKOEKFEOKFE
 if(isset($_POST['tambah'])){
     $Nis = $_POST['Nis'];
     $Id_user = $_POST['Id_user'];
