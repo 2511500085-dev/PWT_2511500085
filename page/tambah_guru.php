@@ -29,7 +29,8 @@ if(isset($_POST['tambah'])){
     $alamat = $_POST['alamat'];
 
     $insert = mysqli_query($koneksi,"INSERT INTO guru value ('$kd_guru','$id_user','$nm_guru', '$jenkel','$pend_terakhir','$HP','$alamat')");
-    if($insert) {
+    $insertuser = mysqli_query($koneksi,"INSERT INTO admin (username,password,role) VALUES ('$kd_guru','1234','siswa')");
+    if($insert && $insertuser) {
         echo '<div class="alert alert-info-dismissible">
         <button type="button" class="close" data-dismiss="alert"
         aria-hidden="true">X</button>
@@ -44,6 +45,7 @@ if(isset($_POST['tambah'])){
         <h4>Gagal Disimpan</h4></div>';
     }
 }
+
 ?>
     <section class="content">
         <div class="container-fluid">

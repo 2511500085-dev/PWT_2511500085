@@ -75,6 +75,7 @@
 
         if(empty($Username) || empty($Password))  {
             echo "Data Tidak Boleh kosong";
+        
         } else {
             $userquery = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM 
               admin WHERE Username ='$Username' AND Password = '$Password' "));
