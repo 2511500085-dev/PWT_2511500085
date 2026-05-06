@@ -136,6 +136,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Siswa</p>
                 </a>
               </li>
+              <li class="nav-item">
+                 <a href="index.php?page=ganti_password" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ganti Password</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

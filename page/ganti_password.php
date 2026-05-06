@@ -1,56 +1,41 @@
 <?php
-require_once "config/koneksi.php";
+include "config/koneksi.php";
 
-/** @var mysqli $koneksi */
-
-if (!isset($_SESSION['username'])) {
-    echo "<script>window.location='login.php';</script>";
-    exit;
-}
+$username = $_SESSION['Username'];
 
 if (isset($_POST['simpan'])) {
 
-    $Username = $_SESSION['username'];
-    $p1 = $_POST['p1'];
-    $pb = $_POST['pb'];
+    $password_baru = $_POST['password_baru'];
 
-    $cek = mysqli_query($conn,
-    "SELECT * FROM admin WHERE username='$Username' AND password='$p1'");
+    $update = mysqli_query($koneksi, "
+        UPDATE admin
+        SET Password='$password_baru'
+        WHERE Username='$username'
+    ");
 
-    if (mysqli_num_rows($cek) > 0) {
-
-        mysqli_query($conn,
-        "UPDATE admin SET password='$pb' WHERE username='$Username'");
-
-        echo "<script>alert('Password berhasil diganti');</script>";
-
-        if ($_SESSION['role'] == "guru") {
-            echo "<script>window.location='starter.php?page=guru';</script>";
-        } elseif ($_SESSION['role'] == "siswa") {
-            echo "<script>window.location='starter.php?page=siswa';</script>";
-        } else {
-            echo "<script>window.location='starter.php?page=dashboard';</script>";
-        }
-
-        exit;
-
+    if ($update) {
+        echo "<script>
+            alert('Password berhasil diganti');
+            window.location='index.php';
+        </script>";
     } else {
-        echo "<div class='alert alert-danger'>Password lama salah</div>";
+        echo "Gagal : " . mysqli_error($koneksi);
     }
 }
 ?>
 
-<div class="content-header">
-    <div class="container-fluid">
-        <h1>Ganti Password</h1>
-    </div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ganti Password</title>
+</head>
+<body>
 
 <form method="POST">
-    <input type="Password" name="p1" placeholder="Password Lama" class="form-control" required><br>
-    <input type="Password" name="pb" placeholder="Password Baru" class="form-control" required><br>
-
-    <button type="submit" name="simpan" class="btn btn-primary">
-        Ganti Password
-    </button>
+    <h2>Ganti Password</h2>
+    <input type="Password" name="password_baru" placeholder="Password Baru" required>
+    <button type="submit" name="simpan">Simpan</button>
 </form>
+
+</body>
+</html>

@@ -11,15 +11,13 @@
 <?php
 include "config/koneksi.php";
 
-if(isset($_GET['action'])) {
-    if($_GET['action'] == "hapus") {
-        $Nis = $_GET['Nis'];
+if (isset($_GET['action']) && $_GET['action'] == "hapus") {
+    $kd = $_GET['kd'];
+    $query = mysqli_query($conn, "DELETE FROM siswa WHERE Nis='$kd'");
 
-        $query = mysqli_query($koneksi, "DELETE FROM siswa WHERE Nis='$Nis'");
-        if ($query) {
-            echo '<div class="alert alert-warning">Berhasil Di Hapus</div>';
-            echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
-        }
+    if ($query) {
+        echo "<div class='alert alert-warning'>Berhasil Di Hapus</div>";
+        echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
     }
 }
 ?>
@@ -28,32 +26,29 @@ if(isset($_GET['action'])) {
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-
-                <a href="index.php?page=tambah_siswa" class="btn btn-primary btn-sm">
-                    Tambah Siswa
-                </a>
+                    <a href="?page=tambah_siswa" class="btn btn-primary">Tambah</a>
 
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>NO</th>
                             <th>Nis</th>
-                            <th>Id user</th>
-                            <th>Nama siswa</th>
-                            <th>jenis kelamin</th>
-                            <th>HP</th>
-                            <th>Id kelas</th>
+                            <th>Id User</th>
+                            <th>Nama Siswa</th>
+                            <th>Jenis Kelamin</th>
+                            <th>No HP</th>
+                            <th>Id Kelas</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                    <?php
-                    $no = 0;
-                    $query = mysqli_query($koneksi,"SELECT * FROM siswa");
-                    while ($result = mysqli_fetch_array($query)) {
-                        $no++;
-                    ?>
+                        <?php
+                        $no = 0;
+                        $query = mysqli_query($koneksi, "SELECT * FROM siswa");
+                        while ($result = mysqli_fetch_array($query)) {
+                            $no++;
+                            ?>
                         <tr>
                             <td><?= $no; ?></td>
                             <td><?= $result['Nis']; ?></td>
@@ -61,18 +56,17 @@ if(isset($_GET['action'])) {
                             <td><?= $result['Nm_siswa']; ?></td>
                             <td><?= $result['Jenkel']; ?></td>
                             <td><?= $result['HP']; ?></td>
-                            <td><?= $result['Id_siswa']; ?></td>
+                            <td><?= $result['Id_kelas']; ?></td>
                             <td>
-                                <a href="index.php?page=siswa&action=hapus&Nis=<?= $result['Nis'] ?>" title="">
-                                    <span class="badge badge-danger">Hapus</span>
-                                </a>
-
-                                <a href="index.php?page=edit_siswa&Nis=<?= $result['Nis'] ?>" title="">
-                                    <span class="badge badge-succes">Edit</span>
-                                </a>
+                                    <a href="index.php?page=edit_siswa&kd=<?= $result['Nis']; ?>">
+                                        <span class="badge badge-warning">Edit</span>
+                                    </a>
+                                    <a href="index.php?page=siswa&action=hapus&kd=<?= $result['Nis']; ?>">
+                                        <span class="badge badge-danger">Hapus</span>
+                                    </a>
                             </td>
                         </tr>
-                    <?php } ?>
+                        <?php } ?>
                     </tbody>
 
                 </table>
