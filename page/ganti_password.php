@@ -1,47 +1,56 @@
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Data kelas</h1>
-        </div>
-    </div>
-  </div>
-</div>
-
 <?php
-if(isset($_POST['tambah'])){
-    $pl = $_POST['pl'];
-    $pb = $_POST['pb'];
-    $cek = mysqli_fetch_array(mysqli_query($koneksi,"SELECT * FROM user WHERE username ='$username' "));
+require_once "config/koneksi.php";
 
-    if($cek){
-        $update = mysqli_query($koneksi,"UPDATE user SET password = '$pb' WHERE password = '$pl' AND username = '$username' ");
-        if($update){
-            echo "benar";
+/** @var mysqli $koneksi */
+
+if (!isset($_SESSION['username'])) {
+    echo "<script>window.location='login.php';</script>";
+    exit;
+}
+
+if (isset($_POST['simpan'])) {
+
+    $Username = $_SESSION['username'];
+    $p1 = $_POST['p1'];
+    $pb = $_POST['pb'];
+
+    $cek = mysqli_query($conn,
+    "SELECT * FROM admin WHERE username='$Username' AND password='$p1'");
+
+    if (mysqli_num_rows($cek) > 0) {
+
+        mysqli_query($conn,
+        "UPDATE admin SET password='$pb' WHERE username='$Username'");
+
+        echo "<script>alert('Password berhasil diganti');</script>";
+
+        if ($_SESSION['role'] == "guru") {
+            echo "<script>window.location='starter.php?page=guru';</script>";
+        } elseif ($_SESSION['role'] == "siswa") {
+            echo "<script>window.location='starter.php?page=siswa';</script>";
+        } else {
+            echo "<script>window.location='starter.php?page=dashboard';</script>";
         }
+
+        exit;
+
+    } else {
+        echo "<div class='alert alert-danger'>Password lama salah</div>";
     }
 }
 ?>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-body p-2">
-                        <form method="POST" action="">
-                            <div class="form-group">
-                                <label for="id_kelas">Id Kelas</label>
-                                <input type="text" name="id_kelas" value="<?= $hasilkode; ?>" placeholder="Id Kat" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <Label for="nm_kelas">Nama Kelas</label>
-                                <input type="text" name="nm_kelas" id="nm_kelas" placeholder="Nama kelas" class="form-control">
-                            </div>
-                            <div class="card-footer">
-                                <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
+<div class="content-header">
+    <div class="container-fluid">
+        <h1>Ganti Password</h1>
+    </div>
+</div>
+
+<form method="POST">
+    <input type="Password" name="p1" placeholder="Password Lama" class="form-control" required><br>
+    <input type="Password" name="pb" placeholder="Password Baru" class="form-control" required><br>
+
+    <button type="submit" name="simpan" class="btn btn-primary">
+        Ganti Password
+    </button>
+</form>
