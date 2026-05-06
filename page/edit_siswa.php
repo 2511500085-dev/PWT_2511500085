@@ -23,8 +23,8 @@ if(isset($_POST['tambah'])){
 
     if($Id_siswa != '' && $Nm_siswa != ''){
         $update = mysqli_query($koneksi, "UPDATE siswa 
-        SET Nm_siswa='$Nm_siswa' 
-        WHERE Id_siswa='$Id_siswa'");
+        SET Nm_siswa='$Nm_siswa',Id_user='$Id_user',Jenkel='$Jenkel',HP='$HP',Id_kelas='$Id_kelas'  
+        WHERE Nis='$Nis'");
 
         if($update){
             echo '<div class="alert alert-success">Berhasil Disimpan</div>';

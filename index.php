@@ -137,6 +137,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
+                <a href="index.php?page=skripsi_2511500085" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>skripsi_2511500085</p>
+                </a>
+              </li>
+              <li class="nav-item">
                  <a href="index.php?page=ganti_password" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ganti Password</p>
