@@ -43,38 +43,46 @@ if(isset($_POST['tambah'])){
         <div class="card">
             <div class="card-body">
                 <form method="POST">
-                    <div class="form-group">
-                                <label for="Nis">Nis</label>
-                                <input type="text" name="Nis" value="<?= $edit['Nis']; ?>" class="form-control" readonly>
-                            </div>
-                             <div class="form-group">
-                                <Label for="Id_user">Id User</label>
-                                <input type="text" name="Id_user" value="<?= $edit['Id_user']; ?>" id="Id_user" placeholder="Id User" class="form-control">
-                            </div>
+                                <div class="form-group">
+                        <label>Nis</label>
+                        <input type="text" name="Nis"
+                        value="<?= isset($edit['Nis']) ? $edit['Nis'] : ''; ?>"
+                        class="form-control">
+                    </div>
+                                <div class="form-group">
+                        <label>id user</label>
+                        <input type="text" name="Id_user"
+                        value="<?= isset($edit['Id_user']) ? $edit['Id_user'] : ''; ?>"
+                        class="form-control">
+                    </div>
                             <div class="form-group">
-                                <Label for="Nm_siswa">Nama Siswa</label>
-                                <input type="text" name="Nm_siswa" value="<?= $edit['Nm_siswa']; ?>" id="Nm_siswa" placeholder="Nama Siswa" class="form-control">
-                            </div>
+                        <label>Nama Siswa</label>
+                        <input type="text" name="Nm_siswa"
+                        value="<?= isset($edit['Nm_siswa']) ? $edit['Nm_siswa'] : ''; ?>"
+                        class="form-control">
+                    </div>
                              <div class="form-group">
                                 <Label for="Jenkel">Jenis Kelamin</label>
-                                <input type="text" name="Jenkel" value="<?= $edit['Jenkel']; ?>" id="Jenkel" placeholder="Jenkel" class="form-control">
-                                <option value="">pilih jenis kelamin</option>
-                                <option value="laki-laki" <?= ($edit['jenkel']== 'laki-laki') ? 'selected' : ''; ?>>laki-laki</option>
-                                <option value="perempuan" <?= ($edit['jenkel']== 'perempuan') ? 'selected' : ''; ?>>perempuan</option>
+                                <select name="Jenkel" id="Jenkel" class="form-control">
+                                <option value="laki">laki</option>
+                                <option value="puan">puan</option>
+                            </select>
                             </div>
+                             <div class="form-group">
+                        <label>HP</label>
+                        <input type="text" name="HP"
+                        value="<?= isset($edit['HP']) ? $edit['HP'] : ''; ?>"
+                        class="form-control">
+                    </div>
                             <div class="form-group">
-                                <Label for="HP">HP</label>
-                                <input type="text" name="HP" value="<?= $edit['HP']; ?>" id="HP" placeholder="HP" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <Label for="kd_kelas">Kd kelas</label>
-                                <select class="form-control" name="kd_kelas" required>
+                                <Label for="id_kelas">id kelas</label>
+                                <select class="form-control" name="id_kelas" required>
                                     <option value="" disable selected>--Pilih Kelas--</option>
                                     <?php
                                     $getkelas = mysqli_query($koneksi, "SELECT * FROM kelas");
                                     while ($returnkelas = mysqli_fetch_array($getkelas)){
                                         ?>
-                                        <option value="<?= $returnkelas['kd_kelas']; ?>"><?= $returnkelas['nm_kelas']; ?></option>
+                                        <option value="<?= $returnkelas['id_kelas']; ?>"><?= $returnkelas['nm_kelas']; ?></option>
                                         <?php } ?>
                                 </select>
                             </div>
