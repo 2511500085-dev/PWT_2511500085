@@ -16,7 +16,6 @@ if(isset($_POST['tambah'])){
     $guru          = $_POST['guru'];
     $semester      = $_POST['semester'];
     $tahun_ajaran  = $_POST['tahun_ajaran'];
-
     $kd_mapel      = $_POST['kd_mapel'];
     $hari          = $_POST['hari'];
     $jam           = $_POST['jam'];
